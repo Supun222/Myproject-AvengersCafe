@@ -7,6 +7,8 @@ import CartItem from '../Components/CartItem'
 import "./style.css"
 import CategoryComponent from '../Components/CategoryComponent'
 import { useState } from 'react/cjs/react.development'
+import axios from '../axios';
+
 
 const DATA = [
     {   
@@ -17,7 +19,7 @@ const DATA = [
     },
     {
         id: 2,
-        image: process.env.PUBLIC_URL + `/images/item.png`,
+        image: "https://www.kitchensanctuary.com/wp-content/uploads/2015/03/Fried-Rice-square-FS.jpg",
         name: "Bell Pepper Pizza",
         price: "12.99"
     },
@@ -63,7 +65,7 @@ const CATEGORY_DATA = [
     },
 ]
 
-const CART_COUNT = 1;
+const CART_COUNT = 2;
 
 function FoodOrder() {
     
@@ -73,6 +75,24 @@ function FoodOrder() {
     const closeIcon = <XIcon className="w-14 h-14 text-gray-500 block"/>
 
     const [picked, setPicked] = useState(false);
+    const [selectedCategoryId, setSelectedCategoryId] = useState(1);
+    const [foodItems, setFoodItems] = useState([])
+    
+    async function getSelectedCategory(selectedCategoryId){
+        await axios.get(`/api/customer/save/FoodMenu/FoodCategory/${selectedCategoryId}`).then(response => {
+            console.log(response)
+            setFoodItems(response.data)
+        }).catch(function (error) {
+            if(error.response){
+                // setCustomError("Can't send customer information");
+            } else if(error.request){
+                // setCustomError("Internal Server Error");
+                console.log(error);
+            } else {
+                // setCustomError("Can't send customer information");
+            }
+        })
+    }
 
     return (
         <div className="w-screen h-screen bg-gray-100 flex relative">
@@ -91,18 +111,31 @@ function FoodOrder() {
                     <div className="flex justify-between mt-10">
                         {
                             CATEGORY_DATA.map(element => (
-                                <CategoryComponent key={element.id} active={true} icon={element.icon} title={element.title} />
+                                <button className="btn" onClick={(e)=>{
+                                    setSelectedCategoryId(element.id);
+                                    getSelectedCategory(element.id)
+                                    }}>
+                                    <CategoryComponent key={element.id} active={selectedCategoryId == element.id} icon={element.icon} title={element.title} />
+                                </button>
                             ))
                         }
                     </div>
                     <h1 className="text-4xl font-semibold text-gray-500 my-6">Pick Your Favourite</h1>
                 </div>
-                <div className="flex-1 grid grid-cols-4 py-10 relative">
+                {
+                    foodItems.length > 0 ?
+                    <div className="flex-1 grid grid-cols-4 py-10 relative">
                     <div className={`absolute z-30 top-0 right-0 left-0 bottom-0 w-full h-full glass ${picked ? 'block' : 'hidden'}`}></div>
                     {
-                        DATA.map((element) => (<FoodComponent key={element.id} image={element.image} name={element.name} price={element.price}/>))
+                        foodItems.map((element) => (<FoodComponent key={element.food_id} image={element.image} name={element.name} price={element.price}/>))
                     }
-                </div>
+                    </div> : 
+                    <div className="flex items-start justify-center bg-gray-300">
+                            <p className="text-center text-2xl bg-gray-300 px-8 py-4 ">
+                                No Items
+                            </p>
+                    </div>
+                }
             </div>
             <div className="w-1/4 px-4 py-10 relative">
                 <h1 className="text-4xl font-semibold mb-10">Order Menu</h1>

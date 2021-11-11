@@ -22,6 +22,7 @@ function CustomerRegister() {
             
         }).then(response => {
             setRedirect(true);
+            localStorage.setItem("cus_id", response.data);
         }).catch(function (error) {
             if(error.response){
                 setCustomError("Can't send customer information");
@@ -36,7 +37,7 @@ function CustomerRegister() {
 
     if(redirect){
         return (
-            <Redirect to="/"/>
+            <Redirect to="/order"/>
         )
     } else if(customError !== undefined) {
         return (
