@@ -1,0 +1,14 @@
+/* path {
+    fill: none;
+    stroke: #FFDB6D;
+    stroke-width: 2rem;
+    stroke-linejoin: round;
+} */
+
+.customer-shape {
+    position: absolute;
+    /* transform: rotate(90deg); */
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
