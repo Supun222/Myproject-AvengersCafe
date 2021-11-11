@@ -6,7 +6,7 @@ import {ChatIcon, CogIcon, XIcon} from "@heroicons/react/outline"
 import CartItem from '../Components/CartItem'
 import "./style.css"
 import CategoryComponent from '../Components/CategoryComponent'
-import { useState } from 'react/cjs/react.development'
+import { useState, useEffect } from 'react/cjs/react.development'
 import axios from '../axios';
 
 
@@ -78,6 +78,11 @@ function FoodOrder() {
     const [selectedCategoryId, setSelectedCategoryId] = useState(1);
     const [foodItems, setFoodItems] = useState([])
     
+    useEffect(() => {
+        getSelectedCategory(selectedCategoryId);
+        return () => {
+        }
+    }, [])
     async function getSelectedCategory(selectedCategoryId){
         await axios.get(`/api/customer/save/FoodMenu/FoodCategory/${selectedCategoryId}`).then(response => {
             console.log(response)
