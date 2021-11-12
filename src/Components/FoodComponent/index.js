@@ -1,4 +1,5 @@
 import React from 'react'
+import "./styles.css"
 
 function FoodComponent({image, name, price}) {
     return (

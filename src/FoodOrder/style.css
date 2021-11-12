@@ -7,3 +7,18 @@
     z-index: 2;
     backdrop-filter: blur(2rem);
 }
+
+.cart-property{
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.order-btn-properties{
+    width: 60%;
+    height: 10%;
+}
+
+.payment-method-properties{
+    display: flex;
+    justify-content: center;
+}
