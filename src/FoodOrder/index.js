@@ -1,6 +1,5 @@
 import React from "react";
 import FoodComponent from "../Components/FoodComponent";
-import IconButton from "../Components/IconButton";
 import { HomeIcon, LockClosedIcon } from "@heroicons/react/solid";
 import { ChatIcon, CogIcon, XIcon } from "@heroicons/react/outline";
 import CartItem from "../Components/CartItem";
@@ -12,8 +11,10 @@ import Modal from "react-modal";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import {ACT_TYPE} from "../util/constans"
 import {Redirect} from "react-router-dom"
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MainSideBarComponent from "../Components/MainSideBar/MainSideBar";
+
 
 const DATA = [
   {
@@ -73,11 +74,6 @@ const CATEGORY_DATA = [
 
 function FoodOrder() {
   let subtitle;
-  const homeIcon = <HomeIcon className="w-14 h-14 text-white block" />;
-  const chatIcon = <ChatIcon className="w-14 h-14 text-gray-500 block" />;
-  const cogIcon = <CogIcon className="w-14 h-14 text-gray-500 block" />;
-  const closeIcon = <XIcon className="w-14 h-14 text-gray-500 block" />;
-
   const [picked, setPicked] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState(1);
   const [foodItems, setFoodItems] = useState([]);
@@ -194,19 +190,7 @@ function FoodOrder() {
   return (
     <>
       <div className="w-screen h-screen bg-gray-100 flex relative">
-        <div className="w-1/12 flex flex-col items-center relative justify-between pb-10">
-          <div className="flex flex-col h-3/5 justify-around items-center">
-            <img
-              src={process.env.PUBLIC_URL + `/images/logo.png`}
-              alt="LOGO"
-              className="logo"
-            />
-            <IconButton icon={homeIcon} name={"Home"} active={true} />
-            <IconButton icon={chatIcon} name={"Chat"} active={false} />
-            <IconButton icon={cogIcon} name={"Settings"} active={false} />
-          </div>
-          <IconButton icon={closeIcon} name={"Close"} active={false} />
-        </div>
+        <MainSideBarComponent type={"Home"} />
         <div className="flex-1 py-6 px-5">
           <div className="mb-5">
             <h1 className="text-4xl font-semibold text-gray-500">

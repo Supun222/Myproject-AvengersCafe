@@ -1,0 +1,38 @@
+.done-btn-property{
+    right: 25%;
+    position: fixed;
+    bottom: 5vh;
+}
+.order-panel{
+    height: 75vh;
+    width: 18vw;
+    border-radius: 3rem;
+    border: 1px solid
+}
+
+.prep-time-label{
+    display: flex;
+    position: absolute;
+    bottom: 50px;
+    justify-content: center;
+    width: inherit;
+}
+
+.text-align-center{
+    text-align: center;
+}
+
+.selected-card-label{
+    background-color: #3499FB;
+    color: #fff;
+    font-weight: bold;
+}
+
+.not-selected-card-label{
+    color: black;
+    font-weight: bold;
+}
+
+.selected-card{
+    background-color: #91EF91;
+}
