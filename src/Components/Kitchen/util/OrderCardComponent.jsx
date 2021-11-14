@@ -1,32 +1,82 @@
 import React from "react";
 import "./OrderStyles.css";
+import axios from "../../../axios";
+import { useState, useEffect } from "react/cjs/react.development";
 
-function OrderCardComponent (key) {
-    return(
-        <>
-            <div key={key} className="order-panel pt-3 pl-3 pr-3">
-                <div className="row justify-content-between">
-                    <div className="col-4"> Client Name</div>
-                    <div className="col-3"> Time</div>
-                </div>
-                <div className="row justify-content-between mt-2">
-                    <div className="col-4"> Section No</div>
-                    <div className="col-3"> Table No</div>
-                </div>
-                <div className="row justify-content-center mt-2 not-selected-card-label">
-                    <div className="col-6 text-align-center">New Items</div>
-                </div>
+function OrderCardComponent({key, userData, selectedCustomerId}) {
+
+    const [foodOrderInfo, setFoodOrderInfo] = useState([]);
+    const [prepTime, setPrepTime] = useState(0);
+
+    const getOrderDetails = async () => {
+        await axios.get("/api/order/singleorder/"+userData.cusID)
+        .then((response) => {
+            // console.log(response)
+            response.data.map((data) => {
+              return(
+                setFoodOrderInfo((previousOrder) => [...previousOrder, data])
+              )
+            })
+          })
+          .catch(function (error) {
+            if (error.response) {
+              console.error(error.response);
+            } else if (error.request) {
+              console.log(error.request);
+            } else {
+              console.log(error);
+            }
+          });
+    }
+    
+    const calculatePrepTime = (foodDetails) =>{
+        var prev;
+        foodDetails.map((data)=>{
+            console.log((data.prepTime * data.quantity))
+            return(
+                // setPrepTime(prev =>{ return (prev + (data.prepTime * data.quantity))})
+                (prev + (data.prepTime * data.quantity))
+            )
+        })
+    }
+    useEffect(()=>{
+        setFoodOrderInfo([]);
+        getOrderDetails();
+        console.log("123")
+        if(foodOrderInfo.length >0){
+        }
+    },[]);
+
+  return (
+    <>
+      <div key={key} className="order-panel pt-3 pl-3 pr-3">
+        <div className="row justify-content-between">
+          <div className="col-4"> ID : {userData.cusID}</div>
+          <div className="col-3"> Table No : {userData.tableNum}</div>
+        </div>
+        <div className="row justify-content-between mt-2">
+          <div className="col-5"> Section No : 1</div>
+        </div>
+        <div className="row justify-content-center mt-2 not-selected-card-label">
+          <div className="col-6 text-align-center">New Items</div>
+        </div>
+        <div className="h-3/5 overflow-auto">
+            {foodOrderInfo.map((data)=>{
+                return(
                 <div className="row mt-4 justify-content-center">
-                    <div className="col-2"> 1</div>
-                    <div className="col-6"> Food Name</div>
-                </div>
-                <div className="row prep-time-label not-selected-card-label">
-                    <div className="col-12 text-align-center">Time (prep Time)</div>
-                </div>
-            </div>
-            
-        </>
-    )
+                    <div className="col-2"> {data.quantity}</div>
+                    <div className="col-6"> {data.fname}</div>
+                  </div>
+                )
+            })}
+
+        </div>
+        <div className={`row prep-time-label ${selectedCustomerId === userData.cusID ? "selected-card-label": "not-selected-card-label"}`}>
+          <div className="col-12 text-align-center">Preparation Time : {()=>{calculatePrepTime(foodOrderInfo)}} min</div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default OrderCardComponent;

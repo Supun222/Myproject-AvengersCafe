@@ -11,11 +11,13 @@
 }
 
 .prep-time-label{
-    display: flex;
+    /* display: flex;
     position: absolute;
     bottom: 50px;
     justify-content: center;
-    width: inherit;
+    width: inherit; */
+    /* position: relative;
+    bottom: -50vh; */
 }
 
 .text-align-center{
