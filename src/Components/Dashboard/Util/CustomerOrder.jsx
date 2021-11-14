@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import "./utilStyle.css";
 import axios from "../../../axios";
+import { FetchContext } from "../ContextManager";
 
 export default function CustomerOrderTable() {
 
   const [dailyOrders, setDailyOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [customError, setCustomError] = useState(false)
+  const { id, setId } = useContext(FetchContext);
 
   useEffect(() => {
     async function fetchOrders() {
-      await axios.get('/dashboard/dailyorders').then(response => {
+      await axios.get('/api/order/checkorder').then(response => {
         setDailyOrders(response.data);
         if (response.data.length !== 0) {
           setLoading(false);
@@ -28,13 +30,21 @@ export default function CustomerOrderTable() {
         }
       });
     }
-
     fetchOrders();
   }, []);
 
-  function showSelected(data) {
-
-  }
+  const Orders = dailyOrders.map((item, index) =>
+    <tr key={item.cusId}>
+      <td>{index + 1}</td>
+      <td>{item.cname}</td>
+      <td>{item.tableNum}</td>
+      <td>{item.actType}</td>
+      <td>Rs.{item.totalPrice}.00 - {id}</td>
+      <td>
+        <button className="px-3 py-2 bg-green-500 rounded-md text-white" onClick={() => setId(item.cusId)}>View</button>
+      </td>
+    </tr>
+  );
 
   return (
     <div className="">
@@ -51,18 +61,7 @@ export default function CustomerOrderTable() {
         </thead>
         <tbody className="table-body-fixed-height">
           {
-            dailyOrders.map((item, index) =>
-              <tr key={item.tableNum}>
-                <td>{index + 1}</td>
-                <td>{item.cusName}</td>
-                <td>{item.tableNum}</td>
-                <td>{item.actType}</td>
-                <td>Rs.{item.totalPrice}.00</td>
-                <td>
-                  <button className="px-3 py-2 bg-green-500 rounded-md text-white">View</button>
-                </td>
-              </tr>
-            )
+            Orders
           }
         </tbody>
       </table>
