@@ -34,6 +34,7 @@ export default function DashboardReports(reportType) {
         await axios.get("/api/order/reports/"+type)
         .then((response) => {
             setAmount(response.data)
+            console.log(amount);
           })
           .catch(function (error) {
             if (error.response) {
