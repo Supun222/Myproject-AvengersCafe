@@ -47,7 +47,7 @@ const DATA = [
 const CATEGORY_DATA = [
   {
     id: 1,
-    title: "pizza",
+    title: "rice",
     icon: process.env.PUBLIC_URL + `/images/pizza.png`,
   },
   {
@@ -57,7 +57,7 @@ const CATEGORY_DATA = [
   },
   {
     id: 3,
-    title: "rice",
+    title: "pizza",
     icon: process.env.PUBLIC_URL + `/images/rice.png`,
   },
   {
