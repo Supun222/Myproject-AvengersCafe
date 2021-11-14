@@ -48,7 +48,7 @@ export default function CustomerOrderTable() {
 
   return (
     <div className="">
-      <table class="table table-hover">
+      <table className="table table-hover">
         <thead>
           <tr>
             <th scope="col">No</th>

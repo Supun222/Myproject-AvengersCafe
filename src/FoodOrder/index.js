@@ -47,7 +47,7 @@ const DATA = [
 const CATEGORY_DATA = [
   {
     id: 1,
-    title: "pizza",
+    title: "rice",
     icon: process.env.PUBLIC_URL + `/images/pizza.png`,
   },
   {
@@ -57,7 +57,7 @@ const CATEGORY_DATA = [
   },
   {
     id: 3,
-    title: "rice",
+    title: "pizza",
     icon: process.env.PUBLIC_URL + `/images/rice.png`,
   },
   {
@@ -327,13 +327,13 @@ function FoodOrder() {
               </div>
               <div className="row mt-2 justify-content-around">
                 <div className="col-4 payment-method-properties">
-                  <button class="btn btn-block bg-pink text-white" onClick={() =>{
+                  <button className="btn btn-block bg-pink text-white" onClick={() =>{
                       createOrder();
                       notify();
                   }}>Card</button>
                 </div>
                 <div className="col-4 payment-method-properties">
-                  <button class="btn btn-block bg-pink text-white"  onClick={() =>{
+                  <button className="btn btn-block bg-pink text-white"  onClick={() =>{
                       createOrder();
                       notify();
                   }}>Cash</button>

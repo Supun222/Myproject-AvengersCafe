@@ -8,13 +8,18 @@ function OrderCardComponent({key, userData, selectedCustomerId}) {
     const [foodOrderInfo, setFoodOrderInfo] = useState([]);
     const [prepTime, setPrepTime] = useState(0);
 
+    const calculatePrepTime = (foodDetails) =>{
+        setPrepTime(prev =>{ return (prev + (foodDetails.prepTime * foodDetails.quantity))})
+    }
+
     const getOrderDetails = async () => {
         await axios.get("/api/order/singleorder/"+userData.cusID)
         .then((response) => {
             // console.log(response)
             response.data.map((data) => {
               return(
-                setFoodOrderInfo((previousOrder) => [...previousOrder, data])
+                setFoodOrderInfo((previousOrder) => [...previousOrder, data]),
+                calculatePrepTime(data)
               )
             })
           })
@@ -29,22 +34,11 @@ function OrderCardComponent({key, userData, selectedCustomerId}) {
           });
     }
     
-    const calculatePrepTime = (foodDetails) =>{
-        var prev;
-        foodDetails.map((data)=>{
-            console.log((data.prepTime * data.quantity))
-            return(
-                // setPrepTime(prev =>{ return (prev + (data.prepTime * data.quantity))})
-                (prev + (data.prepTime * data.quantity))
-            )
-        })
-    }
+
     useEffect(()=>{
         setFoodOrderInfo([]);
         getOrderDetails();
         console.log("123")
-        if(foodOrderInfo.length >0){
-        }
     },[]);
 
   return (
@@ -72,7 +66,7 @@ function OrderCardComponent({key, userData, selectedCustomerId}) {
 
         </div>
         <div className={`row prep-time-label ${selectedCustomerId === userData.cusID ? "selected-card-label": "not-selected-card-label"}`}>
-          <div className="col-12 text-align-center">Preparation Time : {()=>{calculatePrepTime(foodOrderInfo)}} min</div>
+          <div className="col-12 text-align-center">Preparation Time : {prepTime} min</div>
         </div>
       </div>
     </>

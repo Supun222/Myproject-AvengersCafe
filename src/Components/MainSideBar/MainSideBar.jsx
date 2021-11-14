@@ -12,7 +12,6 @@ function MainSideBarComponent(type) {
     const cogIcon = <CogIcon className="w-14 h-14 text-gray-500 block" />;
     const closeIcon = <XIcon className="w-14 h-14 text-gray-500 block" />;
     const dashboardIcon = <CollectionIcon className={`w-14 h-14 block ${type.type === "Dashboard" ? "text-white" : "text-gray-500"}`} />;
-    console.log(type.type === "Home")
     return (
         <>
         <div className="w-1/12 flex flex-col items-center relative justify-between pb-10">
