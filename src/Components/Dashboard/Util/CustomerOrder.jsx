@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import "./utilStyle.css";
 import axios from "../../../axios";
 import { FetchContext } from "../ContextManager";
+import { OpenContext } from "../OpenManager";
 
 export default function CustomerOrderTable() {
 
@@ -9,6 +10,7 @@ export default function CustomerOrderTable() {
   const [loading, setLoading] = useState(false);
   const [customError, setCustomError] = useState(false)
   const { id, setId } = useContext(FetchContext);
+  const { open, setOpen } = useContext(OpenContext);
 
   useEffect(() => {
     async function fetchOrders() {
