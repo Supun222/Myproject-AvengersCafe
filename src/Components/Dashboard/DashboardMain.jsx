@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MainSideBarComponent from "../MainSideBar/MainSideBar";
 import DashboardReports from "./Util/DashboardReports";
 import CustomerOrderTable from "./Util/CustomerOrder";
@@ -6,6 +6,9 @@ import FoodOrderComponent from "./Util/FoodOrder";
 import { ACT_TYPE } from "../../util/constans";
 
 function DashboardMainComponent() {
+
+  const [activeTable, setActiveTable] = useState(false);
+
   return (
     <div className="w-screen h-screen bg-gray-100 flex relative">
       <MainSideBarComponent type={"Dashboard"} />
@@ -26,23 +29,32 @@ function DashboardMainComponent() {
           </div>
         </div>
         <div className="row justify-content-between">
-            <div className="col-2 font-black pt-3 pb-3 text-xl">Orders</div>
-            <label className="col-2 pt-3 pb-3 "> Table : 1</label>
+          <div className="col-2 font-black pt-3 pb-3 text-xl">Orders</div>
+          <label className="col-2 pt-3 pb-3"> Table : 1</label>
         </div>
         <div className="row">
-            <CustomerOrderTable/>
+          <CustomerOrderTable />
         </div>
         <div className="row">
-            <FoodOrderComponent/>
+          {
+            !activeTable ?
+              <FoodOrderComponent />
+              : null
+          }
         </div>
-        <div className="row justify-content-end ">
-            <div className="col-3 text-center">
+
+        {
+          !activeTable ?
+            <div className="row justify-content-end ">
+              <div className="col-3 text-center">
                 <button className="mr-2 btn btn-success">Cancel</button>
-            </div>
-            <div className="col-3 text-center">
+              </div>
+              <div className="col-3 text-center">
                 <button className="btn btn-warn">Proceed</button>
-            </div>
-        </div>
+              </div>
+            </div> : null
+        }
+
       </div>
     </div>
   );
