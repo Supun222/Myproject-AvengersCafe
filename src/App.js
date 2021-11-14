@@ -23,7 +23,7 @@ function App() {
           <Route path="/kitchen">
             <KitchenMainComponent/>
           </Route>
-          <Route path="/dashboard">
+          <Route path="/dashboard/:userType">
             <DashboardMainComponent/>
           </Route>
         </Switch>

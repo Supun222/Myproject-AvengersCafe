@@ -4,10 +4,13 @@ import DashboardReports from "./Util/DashboardReports";
 import CustomerOrderTable from "./Util/CustomerOrder";
 import FoodOrderComponent from "./Util/FoodOrder";
 import { ACT_TYPE } from "../../util/constans";
+import { useParams } from "react-router-dom";
+
 
 function DashboardMainComponent() {
 
   const [activeTable, setActiveTable] = useState(false);
+  const { userType } = useParams();
 
   return (
     <div className="w-screen h-screen bg-gray-100 flex relative">
@@ -30,7 +33,9 @@ function DashboardMainComponent() {
         </div>
         <div className="row justify-content-between">
           <div className="col-2 font-black pt-3 pb-3 text-xl">Orders</div>
-          <label className="col-2 pt-3 pb-3"> Table : 1</label>
+          {(!activeTable) ? 
+            <label className="col-2 pt-3 pb-3"> Table : 1</label> : null
+          }
         </div>
         <div className="row">
           <CustomerOrderTable />
@@ -44,7 +49,7 @@ function DashboardMainComponent() {
         </div>
 
         {
-          !activeTable ?
+          (!activeTable && userType !== "manager") ?
             <div className="row justify-content-end ">
               <div className="col-3 text-center">
                 <button className="mr-2 btn btn-success">Cancel</button>

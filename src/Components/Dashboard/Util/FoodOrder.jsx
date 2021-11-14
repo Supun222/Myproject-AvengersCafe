@@ -4,7 +4,7 @@ import "./utilStyle.css";
 export default function FoodOrderComponent() {
   return (
     <div>
-      <table class="table table-hover">
+      <table className="table table-hover">
         <thead>
           <tr>
             <th scope="col">Item No</th>
