@@ -30,6 +30,22 @@ export default function DashboardReports(reportType) {
     }
   }
 
+  // const coutReports = async (type) => {
+  //   await axios.get("/api/order/reports/" + type)
+  //     .then((response) => {
+  //       setAmount(response.data)
+  //       console.log(amount);
+  //     })
+  //     .catch(function (error) {
+  //       if (error.response) {
+  //         console.error(error.response);
+  //       } else if (error.request) {
+  //         console.log(error.request);
+  //       } else {
+  //         console.log(error);
+  //       }
+  //     });
+  // }
   const coutReports = async (type) => {
     await axios.get("/api/order/reports/" + type)
       .then((response) => {
