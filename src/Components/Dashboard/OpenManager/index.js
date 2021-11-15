@@ -1,6 +1,6 @@
 import {createContext} from "react";
 
 export const OpenContext = createContext({
-    open: false,
-    setOpen: () => {},
+    openTable: false,
+    setOpenTable: () => {},
 });

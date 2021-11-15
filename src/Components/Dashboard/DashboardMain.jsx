@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import MainSideBarComponent from "../MainSideBar/MainSideBar";
 import DashboardReports from "./Util/DashboardReports";
 import CustomerOrderTable from "./Util/CustomerOrder";
@@ -7,19 +7,25 @@ import { ACT_TYPE } from "../../util/constans";
 import { FetchContext } from "./ContextManager";
 import { OpenContext } from "./OpenManager"
 import { useParams } from "react-router-dom";
+import { useEffect } from "react/cjs/react.development";
+import Proceeds from "../ProceedComponents";
+import { TotalContext } from "./TotalContext";
 
 
 function DashboardMainComponent() {
 
   const [activeTable, setActiveTable] = useState(false);
   const [id, setId] = useState(0);
-  const [open, setOpen] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [openTable, setOpenTable] = useState(false);
   const { userType } = useParams();
+  //* const { openTable, setOpenTable } = useContext(OpenContext);
+
 
   return (
     <div className="w-screen h-screen bg-gray-100 flex relative">
       <MainSideBarComponent type={"Dashboard"} />
-      <OpenContext.Provider value={{ open, setOpen }}>
+      <OpenContext.Provider value={{ openTable, setOpenTable }}>
         <div className="box-border  bg-red-100 h-90 w-screen p-12 m-12 rounded-3xl">
           <div className="font-black pb-3 text-xl">Live Orders</div>
           <div className="row">
@@ -36,37 +42,29 @@ function DashboardMainComponent() {
               <DashboardReports />
             </div>
           </div>
-          <div className="row justify-content-between">
+          <div className="row justify-content-between mt-12">
             <div className="col-2 font-black pt-3 pb-3 text-xl">Orders</div>
-            {(!activeTable) ?
-              <label className="col-2 pt-3 pb-3"> Table : 1</label> : null
-            }
+            {/* <label className="col-2 pt-3 pb-3"> Table : 1</label> */}
           </div>
           <FetchContext.Provider value={{ id, setId }}>
 
-            <div className="row">
-              <CustomerOrderTable />
-            </div>
-            <div className="row">
-              {
-                !activeTable ?
-                  <FoodOrderComponent />
-                  : null
-              }
-            </div>
-          </FetchContext.Provider>
+            <TotalContext.Provider value={{ total, setTotal }}>
 
-          {
-            (!activeTable && userType !== "manager") ?
-              <div className="row justify-content-end ">
-                <div className="col-3 text-center">
-                  <button className="mr-2 btn btn-success" onClick={() => setActiveTable(false)}>Cancel</button>
-                </div>
-                <div className="col-3 text-center">
-                  <button className="btn btn-warn">Proceed</button>
-                </div>
-              </div> : null
-          }
+
+              <div className="row">
+                <CustomerOrderTable />
+              </div>
+              <div className="row">
+                <FoodOrderComponent />
+              </div>
+
+            </TotalContext.Provider>
+
+            <div className="row justify-content-end ">
+              <Proceeds userType={userType} />
+            </div>
+
+          </FetchContext.Provider>
 
         </div>
       </OpenContext.Provider>
