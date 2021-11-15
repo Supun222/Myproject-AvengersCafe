@@ -12,7 +12,7 @@ function Proceeds({userType}) {
     const [customError, setCustomError] = useState(false)
 
     async function UpdateHandler() {
-        await axios.put(`/order/chefconfirm/${id}`, {
+        await axios.put(`/order/cashierconfirm/${id}`, {
             
         })
             .then(response => {
@@ -28,7 +28,7 @@ function Proceeds({userType}) {
                 }
             })
     }
-    
+
     if(redirect) {
         return (
             <Redirect to="/dashboard/cashier" />
@@ -42,13 +42,13 @@ function Proceeds({userType}) {
 
     return (
         <>
-            <div className="col-3 text-center">
-              <button className="mr-2 btn btn-success" onClick={() => setOpenTable(false)}>Cancel</button>
+            <div className="text-center text-xl">
+              <button className="mr-2 btn btn-success rounded-md bg-green-500 px-4 py-3 text-white" onClick={() => setOpenTable(false)}>Cancel</button>
             </div>
             {
                 userType !== "manager" ? 
-                <div className="col-3 text-center">
-                    <button className="btn btn-warn rounded-md bg-red-500 px-3 py-2 text-white" onClick={() => {UpdateHandler()}}>Proceed</button>
+                <div className="text-center text-xl">
+                    <button className="btn btn-warn rounded-md bg-red-500 px-4 py-3 text-white" onClick={() => {UpdateHandler()}}>Proceed</button>
                 </div> : null
             }
         </>

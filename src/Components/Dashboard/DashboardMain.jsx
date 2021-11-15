@@ -60,7 +60,7 @@ function DashboardMainComponent() {
 
             </TotalContext.Provider>
 
-            <div className="row justify-content-end mt-6">
+            <div className="justify-content-end mt-6 flex items-center">
               <Proceeds userType={userType} />
             </div>
 
