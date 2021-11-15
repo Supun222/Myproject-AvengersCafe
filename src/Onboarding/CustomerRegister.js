@@ -11,7 +11,7 @@ function CustomerRegister() {
     const [address, setAddress] = useState("");
     const [redirect, setRedirect] = useState(false);
     const [customError, setCustomError] = useState();
-    const date = new Date().getYear().toString() 
+    const date = new Date().getDate().toString()
     async function PostHandler(){
         await axios.post("/customer/save", {
             address: address,

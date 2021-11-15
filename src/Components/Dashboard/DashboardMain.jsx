@@ -60,7 +60,7 @@ function DashboardMainComponent() {
 
             </TotalContext.Provider>
 
-            <div className="row justify-content-end ">
+            <div className="row justify-content-end mt-6">
               <Proceeds userType={userType} />
             </div>
 

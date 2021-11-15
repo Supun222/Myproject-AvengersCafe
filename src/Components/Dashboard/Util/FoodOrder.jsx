@@ -60,7 +60,7 @@ export default function FoodOrderComponent() {
         <tbody className="table-body-fixed-height">
           {
             orderDetails.map((item, index) =>
-              <tr key={index}>
+              <tr key={index} className="bg-white border pt-5 text-xl">
                 <td>{index + 1}</td>
                 <td>{item.fname}</td>
                 <td>{item.quantity}</td>
@@ -71,7 +71,7 @@ export default function FoodOrderComponent() {
           }
         </tbody>
       </table>
-      <div className="row justify-content-end">
+      <div className="row justify-content-end text-2xl mt-10">
         <label className="col-2 text-center">Total (10% Discount)</label>
         <label className="col-4 text-center">${total}.00</label>
       </div>
