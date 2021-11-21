@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import { OpenContext } from '../Dashboard/OpenManager'
 import axios from '../../axios';
 import { FetchContext } from '../Dashboard/ContextManager';
-import {Redirect} from "react-router-dom"
 
 function Proceeds({userType}) {
 
@@ -30,12 +29,10 @@ function Proceeds({userType}) {
     }
 
     if(redirect) {
-        return (
-            <Redirect to="/dashboard/cashier" />
-        )
+        window.location.reload();
     }
 
-    if(!openTable) {
+    else if(!openTable) {
         return null;
     }
 
