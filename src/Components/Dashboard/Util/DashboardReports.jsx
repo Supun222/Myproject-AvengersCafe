@@ -18,7 +18,7 @@ export default function DashboardReports(reportType) {
   const selectReportType = () => {
     switch (Number(reportType.reportType)) {
       case ACT_TYPE.BILLD:
-        return setParams({ icon: process.env.PUBLIC_URL + `/images/order.png`, name: "Billd", amount: amount, type: "billd" });
+        return setParams({ icon: process.env.PUBLIC_URL + `/images/order.png`, name: "Billed", amount: amount, type: "billd" });
       case ACT_TYPE.PENDING:
         coutReports(ACT_TYPE.PENDING.toString());
         return setParams({ icon: process.env.PUBLIC_URL + `/images/pending.png`, name: "Pending", amount: amount, type: "pending" });
@@ -30,22 +30,6 @@ export default function DashboardReports(reportType) {
     }
   }
 
-  // const coutReports = async (type) => {
-  //   await axios.get("/api/order/reports/" + type)
-  //     .then((response) => {
-  //       setAmount(response.data)
-  //       console.log(amount);
-  //     })
-  //     .catch(function (error) {
-  //       if (error.response) {
-  //         console.error(error.response);
-  //       } else if (error.request) {
-  //         console.log(error.request);
-  //       } else {
-  //         console.log(error);
-  //       }
-  //     });
-  // }
   const coutReports = async (type) => {
     await axios.get("/api/order/reports/" + type)
       .then((response) => {

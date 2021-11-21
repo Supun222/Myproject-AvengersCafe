@@ -11,7 +11,7 @@ import Modal from "react-modal";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import {ACT_TYPE} from "../util/constans"
 import {Redirect} from "react-router-dom"
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MainSideBarComponent from "../Components/MainSideBar/MainSideBar";
 
@@ -99,9 +99,9 @@ function FoodOrder() {
     },
   };
   const notify = () => 
-  toast('🦄 Wow so easy!', {
-    position: "top-right",
-    autoClose: 5000,
+  toast.success('You Order has been placed', {
+    position: "top-center",
+    autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -137,7 +137,7 @@ function FoodOrder() {
       })
       .catch(function (error) {
         if (error.response) {
-          console.error(error.response)
+          console.error(error.response);
         } else if (error.request) {
           console.log(error.request);
         } else {
@@ -172,8 +172,9 @@ function FoodOrder() {
       totalPrice: parseFloat(billTotal*0.9),
       tableNum: 1
     }).then((response) => {
-      console.log(response)
-      window.location = "/customer-safety"
+      setTimeout(() => {
+        window.location = "/customer-safety"
+      }, 3000);
 
     })
     .catch(function (error) {
@@ -190,6 +191,7 @@ function FoodOrder() {
   return (
     <>
       <div className="w-screen h-screen bg-gray-100 flex relative">
+        <ToastContainer />
         <MainSideBarComponent type={"Home"} />
         <div className="flex-1 py-6 px-5">
           <div className="mb-5">
@@ -328,14 +330,14 @@ function FoodOrder() {
               <div className="row mt-2 justify-content-around">
                 <div className="col-4 payment-method-properties">
                   <button className="btn btn-block bg-pink text-white" onClick={() =>{
-                      createOrder();
                       notify();
+                      createOrder();
                   }}>Card</button>
                 </div>
                 <div className="col-4 payment-method-properties">
                   <button className="btn btn-block bg-pink text-white"  onClick={() =>{
-                      createOrder();
                       notify();
+                      createOrder();
                   }}>Cash</button>
                 </div>
               </div>

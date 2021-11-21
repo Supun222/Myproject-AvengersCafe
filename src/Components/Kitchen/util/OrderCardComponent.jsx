@@ -3,43 +3,43 @@ import "./OrderStyles.css";
 import axios from "../../../axios";
 import { useState, useEffect } from "react/cjs/react.development";
 
-function OrderCardComponent({key, userData, selectedCustomerId}) {
+function OrderCardComponent({ key, userData, selectedCustomerId }) {
 
-    const [foodOrderInfo, setFoodOrderInfo] = useState([]);
-    const [prepTime, setPrepTime] = useState(0);
+  const [foodOrderInfo, setFoodOrderInfo] = useState([]);
+  const [prepTime, setPrepTime] = useState(0);
 
-    const calculatePrepTime = (foodDetails) =>{
-        setPrepTime(prev =>{ return (prev + (foodDetails.prepTime * foodDetails.quantity))})
-    }
+  const calculatePrepTime = (foodDetails) => {
+    setPrepTime(prev => { return (prev + (foodDetails.prepTime * foodDetails.quantity)) })
+  }
 
-    const getOrderDetails = async () => {
-        await axios.get("/api/order/singleorder/"+userData.cusID)
-        .then((response) => {
-            // console.log(response)
-            response.data.map((data) => {
-              return(
-                setFoodOrderInfo((previousOrder) => [...previousOrder, data]),
-                calculatePrepTime(data)
-              )
-            })
-          })
-          .catch(function (error) {
-            if (error.response) {
-              console.error(error.response);
-            } else if (error.request) {
-              console.log(error.request);
-            } else {
-              console.log(error);
-            }
-          });
-    }
-    
+  const getOrderDetails = async () => {
 
-    useEffect(()=>{
-        setFoodOrderInfo([]);
-        getOrderDetails();
-        console.log("123")
-    },[]);
+    await axios.get("/api/order/singleorder/" + userData.cusID)
+      .then((response) => {
+        // console.log(response)
+        response.data.map((data) => {
+          return (
+            setFoodOrderInfo((previousOrder) => [...previousOrder, data]),
+            calculatePrepTime(data)
+          )
+        })
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.error(error.response);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log(error);
+        }
+      });
+  }
+
+
+  useEffect(() => {
+    setFoodOrderInfo([]);
+    getOrderDetails();
+  }, []);
 
   return (
     <>
@@ -55,17 +55,17 @@ function OrderCardComponent({key, userData, selectedCustomerId}) {
           <div className="col-6 text-align-center">New Items</div>
         </div>
         <div className="h-3/5 overflow-auto">
-            {foodOrderInfo.map((data)=>{
-                return(
-                <div className="row mt-4 justify-content-center">
-                    <div className="col-2"> {data.quantity}</div>
-                    <div className="col-6"> {data.fname}</div>
-                  </div>
-                )
-            })}
+          {foodOrderInfo.map((data) => {
+            return (
+              <div className="row mt-4 justify-content-center">
+                <div className="col-2"> {data.quantity}</div>
+                <div className="col-6"> {data.fname}</div>
+              </div>
+            )
+          })}
 
         </div>
-        <div className={`row prep-time-label ${selectedCustomerId === userData.cusID ? "selected-card-label": "not-selected-card-label"}`}>
+        <div className={`row prep-time-label ${selectedCustomerId === userData.cusID ? "selected-card-label" : "not-selected-card-label"}`}>
           <div className="col-12 text-align-center">Preparation Time : {prepTime} min</div>
         </div>
       </div>

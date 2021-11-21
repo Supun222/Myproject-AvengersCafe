@@ -15,7 +15,6 @@ function OrderComponent() {
     adaptiveHeight: true,
   };
 
-  const [counter , setCounter] = useState(0);
   const [selectedCustomerId, setSelectedCustomerId] = useState("");
   const [ordersList, setOrdersList] = useState([]);
   const getAllOrders = async () => {
@@ -38,28 +37,29 @@ function OrderComponent() {
   };
 
   useEffect(() => {
-    setOrdersList([])
-    getAllOrders();
+    setOrdersList([]) //* First empty the array
+    getAllOrders(); //* Then loads data
+    console.log(ordersList.length);
   }, []);
 
-  const updateOrderCompleted = async (cusId) =>{
-    await axios.put("/order/chefconfirm/"+cusId)
-    .then((response) => {
-      setSelectedCustomerId("");
-      setOrdersList((data)=>{
-        let index = data.findIndex(Obj=> Obj.cusID === cusId);
-        return( ordersList.splice(index, 1))
+  const updateOrderCompleted = async (cusId) => {
+    await axios.put("/order/chefconfirm/" + cusId)
+      .then((response) => {
+        setSelectedCustomerId("");
+        setOrdersList((data) => {
+          let index = data.findIndex(Obj => Obj.cusID === cusId);
+          return (ordersList.splice(index, 1))
+        })
       })
-    })
-    .catch(function (error) {
-      if (error.response) {
-        console.error(error.response);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log(error);
-      }
-    });
+      .catch(function (error) {
+        if (error.response) {
+          console.error(error.response);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log(error);
+        }
+      });
   }
   return (
     <>
@@ -84,7 +84,7 @@ function OrderComponent() {
       </div>
       <div className="row justify-content-center">
         <div className="col-3 done-btn-property">
-          <button type="button" className="btn btn-primary" disabled={(selectedCustomerId === "" || selectedCustomerId === undefined)} onClick={() =>{
+          <button type="button" className="btn btn-primary" disabled={(selectedCustomerId === "" || selectedCustomerId === undefined)} onClick={() => {
             updateOrderCompleted(selectedCustomerId)
           }}>
             Done

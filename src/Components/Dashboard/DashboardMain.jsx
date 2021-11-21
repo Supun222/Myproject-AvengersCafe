@@ -7,20 +7,16 @@ import { ACT_TYPE } from "../../util/constans";
 import { FetchContext } from "./ContextManager";
 import { OpenContext } from "./OpenManager"
 import { useParams } from "react-router-dom";
-import { useEffect } from "react/cjs/react.development";
 import Proceeds from "../ProceedComponents";
 import { TotalContext } from "./TotalContext";
 
 
 function DashboardMainComponent() {
 
-  const [activeTable, setActiveTable] = useState(false);
   const [id, setId] = useState(0);
   const [total, setTotal] = useState(0);
   const [openTable, setOpenTable] = useState(false);
   const { userType } = useParams();
-  //* const { openTable, setOpenTable } = useContext(OpenContext);
-
 
   return (
     <div className="w-screen h-screen bg-gray-100 flex relative">
