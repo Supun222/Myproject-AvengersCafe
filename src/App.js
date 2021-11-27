@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
+import {HashRouter as Router, Switch, Route} from "react-router-dom"
 import CustomerRegister from './Onboarding/CustomerRegister.js';
 import Home from './Home';
 import FoodOrder from './FoodOrder';
@@ -9,7 +9,7 @@ import DashboardMainComponent from "./Components/Dashboard/DashboardMain.jsx"
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App bg-red-500">
         <Switch>
           <Route exact path="/">
             <Home />
